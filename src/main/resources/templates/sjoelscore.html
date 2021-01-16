@@ -2,16 +2,48 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Sjoelscore</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 <h1>Sjoelscore</h1>
+
 <form action="#" th:action="@{/sjoel}" th:object="${sjoelscore}" method="post">
-    <p>Aantal 2: <input type="number" th:field="*{scoresTwee}" /></p>
-    <p>Aantal 3: <input type="number" th:field="*{scoresDrie}" /></p>
-    <p>Aantal 4: <input type="number" th:field="*{scoresVier}" /></p>
-    <p>Aantal 1: <input type="number" th:field="*{scoresEen}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+        <p>Verbeter onderstaande fouten</p>
+    </div>
+    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('scoresTwee')}
+                                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+        <label>Aantal 2:</label>
+        <input type="text" class="form-control" th:field="*{scoresTwee}"
+               th:errorclass="has-error"/>
+        <span class="help-block" th:if="${#fields.hasErrors('scoresTwee')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('scoresTwee')}" th:text="${err}"/>
+                                        </ul>
+                                    </span>
+    </div>
+
+
+
+    <p>Aantal 3: <input type="number" th:field="*{scoresDrie}"  th:errorclass="has-error"/>
+        <span class="help-block" th:if="${#fields.hasErrors('scoresDrie')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('scoresDrie')}" th:text="${err}"/>
+                                        </ul>
+                                    </span></p>
+    <p>Aantal 4: <input type="number" th:field="*{scoresVier}"  th:errorclass="has-error"/>
+        <span class="help-block" th:if="${#fields.hasErrors('scoresVier')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('scoresVier')}" th:text="${err}"/>
+                                        </ul>
+                                    </span></p>
+    <p>Aantal 1: <input type="number" th:field="*{scoresEen}"  th:errorclass="has-error"/>
+        <span class="help-block" th:if="${#fields.hasErrors('scoresEen')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('scoresEen')}" th:text="${err}"/>
+                                        </ul>
+                                    </span></p>
+    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
 </form>
 </body>
 </html>
