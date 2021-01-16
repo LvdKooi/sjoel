@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<h2>Sjoelscore</h2>
+<form th:object="${sjoelscoreDto}" class="form-horizontal" id="post-score-form" method="post">
+    <div class="form-group has-feedback">
+        <input
+                th:replace="~{fragments/inputField :: input ('Aantal 2', 'aantalTwee', 'text')}"/>
+        <input
+                th:replace="~{fragments/inputField :: input ('Aantal 3', 'aantalDrie', 'text')}"/>
+        <input
+                th:replace="~{fragments/inputField :: input ('Aantal 4', 'aantalVier', 'text')}"/>
+        <input
+                th:replace="~{fragments/inputField :: input ('Aantal 1', 'aantalEen', 'text')}"/>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button
+                    th:with="text='Dien score in'"
+                    class="btn btn-default" type="submit" th:text="${text}">Dien score in
+            </button>
+        </div>
+    </div>
+</form>
+</body>
+</html>
