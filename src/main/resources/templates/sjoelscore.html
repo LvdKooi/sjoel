@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Sjoelscore</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Sjoelscore</h1>
+<form action="#" th:action="@{/sjoel}" th:object="${sjoelscore}" method="post">
+    <p>Aantal 2: <input type="number" th:field="*{scoresTwee}" /></p>
+    <p>Aantal 3: <input type="number" th:field="*{scoresDrie}" /></p>
+    <p>Aantal 4: <input type="number" th:field="*{scoresVier}" /></p>
+    <p>Aantal 1: <input type="number" th:field="*{scoresEen}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>
