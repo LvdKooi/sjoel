@@ -11,21 +11,9 @@ import java.util.Map;
 @Getter
 @Setter
 public class Sjoelscore {
-
-    @Min(0)
-    @Max(32)
     private int scoresTwee;
-
-    @Min(0)
-    @Max(32)
     private int scoresDrie;
-
-    @Min(0)
-    @Max(32)
     private int scoresVier;
-
-    @Min(0)
-    @Max(32)
     private int scoresEen;
 
     public Map<Integer, Integer> getScoremap() {
