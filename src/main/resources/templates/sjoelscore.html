@@ -18,7 +18,7 @@
         <div class="col-md-3 form-group" th:class="${#fields.hasErrors('scoresTwee')}
                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
             <label>Aantal 2:</label>
-            <input type="number" class="form-control" th:field="*{scoresTwee}"
+            <input type="tel" class="form-control" th:field="*{scoresTwee}"
                    th:errorclass="has-error"/>
             <span class="help-block" th:if="${#fields.hasErrors('scoresTwee')}">
                   <ul>
@@ -29,7 +29,7 @@
         <div class="col-md-3 form-group" th:class="${#fields.hasErrors('scoresDrie')}
                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
             <label>Aantal 3:</label>
-            <input type="number" class="form-control" th:field="*{scoresDrie}"
+            <input type="tel" class="form-control" th:field="*{scoresDrie}"
                    th:errorclass="has-error"/>
             <span class="help-block" th:if="${#fields.hasErrors('scoresDrie')}">
                   <ul>
@@ -40,7 +40,7 @@
         <div class="col-md-3 form-group" th:class="${#fields.hasErrors('scoresVier')}
                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
             <label>Aantal 4:</label>
-            <input type="number" class="form-control" th:field="*{scoresVier}"
+            <input type="tel" class="form-control" th:field="*{scoresVier}"
                    th:errorclass="has-error"/>
             <span class="help-block" th:if="${#fields.hasErrors('scoresVier')}">
                   <ul>
@@ -51,7 +51,7 @@
         <div class="col-md-3 form-group" th:class="${#fields.hasErrors('scoresEen')}
                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
             <label>Aantal 1:</label>
-            <input type="number" class="form-control" th:field="*{scoresEen}"
+            <input type="tel" class="form-control" th:field="*{scoresEen}"
                    th:errorclass="has-error"/>
             <span class="help-block" th:if="${#fields.hasErrors('scoresEen')}">
                   <ul>

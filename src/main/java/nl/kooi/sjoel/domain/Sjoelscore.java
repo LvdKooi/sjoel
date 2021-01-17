@@ -9,10 +9,10 @@ import java.util.Map;
 @Getter
 @Setter
 public class Sjoelscore {
-    private int scoresTwee;
-    private int scoresDrie;
-    private int scoresVier;
-    private int scoresEen;
+    private Integer scoresTwee;
+    private Integer scoresDrie;
+    private Integer scoresVier;
+    private Integer scoresEen;
 
     public Map<Integer, Integer> getScoremap() {
         var scoreMap = new HashMap<Integer, Integer>();

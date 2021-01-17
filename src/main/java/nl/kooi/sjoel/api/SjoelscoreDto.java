@@ -7,19 +7,19 @@ import javax.validation.constraints.Min;
 
 @Data
 public class SjoelscoreDto {
-    @Min(0)
-    @Max(32)
-    private int scoresTwee;
+    @Min(value = 0, message = "Scores kleiner dan 0 zijn niet mogelijk bij sjoelen.")
+    @Max(value = 32, message = "Scores groter dan 32 zijn niet mogelijk bij sjoelen.")
+    private Integer scoresTwee;
 
-    @Min(0)
-    @Max(32)
-    private int scoresDrie;
+    @Min(value = 0, message = "Scores kleiner dan 0 zijn niet mogelijk bij sjoelen.")
+    @Max(value = 32, message = "Scores groter dan 32 zijn niet mogelijk bij sjoelen.")
+    private Integer scoresDrie;
 
-    @Min(0)
-    @Max(32)
-    private int scoresVier;
+    @Min(value = 0, message = "Scores kleiner dan 0 zijn niet mogelijk bij sjoelen.")
+    @Max(value = 32, message = "Scores groter dan 32 zijn niet mogelijk bij sjoelen.")
+    private Integer scoresVier;
 
-    @Min(0)
-    @Max(32)
-    private int scoresEen;
+    @Min(value = 0, message = "Scores kleiner dan 0 zijn niet mogelijk bij sjoelen.")
+    @Max(value = 32, message = "Scores groter dan 32 zijn niet mogelijk bij sjoelen.")
+    private Integer scoresEen;
 }
