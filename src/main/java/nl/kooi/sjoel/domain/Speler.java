@@ -1,8 +1,11 @@
 package nl.kooi.sjoel.domain;
 
-import java.util.UUID;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Speler {
-    private UUID id;
+    private int id;
     private String naam;
 }

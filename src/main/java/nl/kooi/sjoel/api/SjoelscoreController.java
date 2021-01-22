@@ -1,7 +1,6 @@
 package nl.kooi.sjoel.api;
 
 import lombok.RequiredArgsConstructor;
-import nl.kooi.sjoel.domain.Mapper;
 import nl.kooi.sjoel.domain.SjoelscoreService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

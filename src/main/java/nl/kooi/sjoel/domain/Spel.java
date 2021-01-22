@@ -1,14 +1,19 @@
 package nl.kooi.sjoel.domain;
 
-import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
+import java.util.Set;
 
+@Getter
+@Setter
 public class Spel {
-    private UUID id;
-    private LocalDateTime startmoment;
-    private int aantalRondes;
+    private int id;
+    private Instant startmoment;
+    private Set<Speler> spelers;
     private Map<Integer, Map<Speler, Integer>> scores = new HashMap<>();
 
 
