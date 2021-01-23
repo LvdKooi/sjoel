@@ -13,5 +13,13 @@ create table score (
   id int primary key AUTO_INCREMENT,
   ronde int,
   score int not null,
-  speler_id int
+  speler_id int,
+  ronde_id int
+);
+
+create table ronde (
+  id int primary key AUTO_INCREMENT,
+  ronde_nummer int,
+  ronde_id int,
+  spel_id int
 );
