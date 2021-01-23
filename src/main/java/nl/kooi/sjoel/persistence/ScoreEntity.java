@@ -8,7 +8,8 @@ public class ScoreEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int score;
     @ManyToOne
-    private RondeEntity ronde;
+    private SpelEntity speler;
+    private int score;
+    private int ronde;
 }

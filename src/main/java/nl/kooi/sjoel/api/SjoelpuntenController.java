@@ -1,7 +1,7 @@
 package nl.kooi.sjoel.api;
 
 import lombok.RequiredArgsConstructor;
-import nl.kooi.sjoel.domain.SjoelscoreService;
+import nl.kooi.sjoel.domain.SjoelpuntenService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -16,8 +16,8 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @Controller
-public class SjoelscoreController {
-    private final SjoelscoreService sjoelscoreService;
+public class SjoelpuntenController {
+    private final SjoelpuntenService sjoelpuntenService;
 
     @InitBinder("sjoelscore")
     public void initOwnerBinder(WebDataBinder dataBinder) {
@@ -25,19 +25,19 @@ public class SjoelscoreController {
 
     @GetMapping("/sjoel")
     public String sjoelscoreForm(Model model) {
-        var sjoelscoreDto = new SjoelscoreDto();
+        var sjoelscoreDto = new SjoelpuntenDto();
         model.addAttribute("sjoelscore", sjoelscoreDto);
         return "sjoelscore";
     }
 
 
     @PostMapping("/sjoel")
-    public String submitScore(@ModelAttribute("sjoelscore") @Valid SjoelscoreDto score, BindingResult result, ModelMap model) {
+    public String submitScore(@ModelAttribute("sjoelscore") @Valid SjoelpuntenDto score, BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
             return "sjoelscore";
         }
 
-        model.addAttribute("punten", String.valueOf(sjoelscoreService.getPunten(Mapper.map(score))));
+        model.addAttribute("punten", String.valueOf(sjoelpuntenService.getPunten(Mapper.map(score))));
         return "result";
     }
 

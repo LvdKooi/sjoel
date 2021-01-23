@@ -13,4 +13,7 @@ public class SpelService {
         spelRepository.save(Mapper.map(spel));
     }
 
+    public Spel getSpel(int id) {
+        return spelRepository.findById(id).map(Mapper::map).orElseThrow();
+    }
 }

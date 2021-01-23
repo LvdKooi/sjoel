@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class Sjoelscore {
+public class Sjoelpunten {
     private Integer scoresTwee;
     private Integer scoresDrie;
     private Integer scoresVier;

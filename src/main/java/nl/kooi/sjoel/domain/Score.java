@@ -1,0 +1,6 @@
+package nl.kooi.sjoel.domain;
+
+public class Score {
+    private int ronde;
+    private int punten;
+}

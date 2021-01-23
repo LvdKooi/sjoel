@@ -5,18 +5,18 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 
 @Service
-public class SjoelscoreService {
+public class SjoelpuntenService {
 
-    public int getPunten(@Valid Sjoelscore sjoelscore) {
+    public int getPunten(@Valid Sjoelpunten sjoelpunten) {
 
-        var laagsteScore = sjoelscore.getScoremap().values()
+        var laagsteScore = sjoelpunten.getScoremap().values()
                 .stream()
                 .min(Integer::compareTo)
                 .orElseThrow();
 
         var totaalScore = laagsteScore * 20;
 
-        totaalScore += sjoelscore
+        totaalScore += sjoelpunten
                 .getScoremap()
                 .entrySet()
                 .stream()
