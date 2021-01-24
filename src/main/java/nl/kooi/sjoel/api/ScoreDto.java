@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ScoreDto {
-    private int ronde;
-    private int punten;
+    private int id;
+    private int score;
 }

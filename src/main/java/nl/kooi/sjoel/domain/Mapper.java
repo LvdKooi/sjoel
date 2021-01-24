@@ -1,6 +1,7 @@
 package nl.kooi.sjoel.domain;
 
 import nl.kooi.sjoel.persistence.RondeEntity;
+import nl.kooi.sjoel.persistence.ScoreEntity;
 import nl.kooi.sjoel.persistence.SpelEntity;
 import nl.kooi.sjoel.persistence.SpelerEntity;
 import org.modelmapper.ModelMapper;
@@ -33,4 +34,8 @@ public class Mapper {
         return modelMapper.map(ronde, RondeEntity.class);
     }
 
+
+    public static Score map(ScoreEntity scoreEntity) {
+        return modelMapper.map(scoreEntity, Score.class);
+    }
 }

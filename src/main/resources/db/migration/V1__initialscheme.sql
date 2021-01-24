@@ -10,7 +10,6 @@ create table speler (
 
 create table score (
   id int primary key AUTO_INCREMENT,
-  ronde int,
   score int not null,
   speler_id int,
   ronde_id int

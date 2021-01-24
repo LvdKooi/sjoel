@@ -1,10 +1,7 @@
 package nl.kooi.sjoel.api;
 
 
-import nl.kooi.sjoel.domain.Ronde;
-import nl.kooi.sjoel.domain.Sjoelpunten;
-import nl.kooi.sjoel.domain.Spel;
-import nl.kooi.sjoel.domain.Speler;
+import nl.kooi.sjoel.domain.*;
 import org.modelmapper.ModelMapper;
 
 public class Mapper {
@@ -36,5 +33,9 @@ public class Mapper {
 
     public static RondeDto map(Ronde ronde) {
         return modelMapper.map(ronde, RondeDto.class);
+    }
+
+    public static ScoreDto map(Score score) {
+        return modelMapper.map(score, ScoreDto.class);
     }
 }
