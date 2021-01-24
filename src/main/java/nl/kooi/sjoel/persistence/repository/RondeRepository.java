@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface RondeRepository extends JpaRepository<RondeEntity, Integer> {
     Optional<RondeEntity> findBySpelIdAndRondenummer(int spelId, int rondeNummer);
+    int countBySpelId(int spelId);
 
 }

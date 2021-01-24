@@ -5,24 +5,27 @@ import nl.kooi.sjoel.domain.RondeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 @RestController
 @RequiredArgsConstructor
 public class RondeController {
 
     private final RondeService rondeService;
 
-    @PostMapping("/spel/{spelId}/ronde")
+    @GetMapping("/spel/{spelId}/ronde/huidige-rondenummer")
     @ResponseStatus(value = HttpStatus.OK)
-    public void saveRonde(@PathVariable("spelId") int spelId, @Valid @RequestBody RondeDto ronde) {
-        rondeService.saveRonde(spelId, Mapper.map(ronde));
+    public int getCurrentRondenummer(@PathVariable("spelId") int spelId) {
+        return rondeService.getHuidigeRondenummer(spelId);
     }
 
-    @GetMapping("/spel/{spelId}/ronde/{rondenummer}")
+    @PostMapping("/spel/{spelId}/ronde/volgende")
     @ResponseStatus(value = HttpStatus.OK)
-    public RondeDto getRonde(@PathVariable("spelId") int spelId, @PathVariable("rondenummer") int rondenummer) {
-       return Mapper.map(rondeService.getRonde(spelId, rondenummer));
+    public void createNextRonde(@PathVariable("spelId") int spelId) {
+        rondeService.saveVolgendeRonde(spelId);
     }
 
+    @DeleteMapping("/spel/{spelId}/ronde/laatste")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteLastRonde(@PathVariable("spelId") int spelId) {
+        rondeService.deleteLaatsteRonde(spelId);
+    }
 }
