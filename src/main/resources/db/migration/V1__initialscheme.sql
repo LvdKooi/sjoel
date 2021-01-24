@@ -18,8 +18,7 @@ create table score (
 
 create table ronde (
   id int primary key AUTO_INCREMENT,
-  ronde_nummer int,
-  ronde_id int,
+  rondenummer int,
   spel_id int
 );
 
