@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -16,8 +15,7 @@ public class SpelerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String naam;
-    @ManyToOne
-    private SpelEntity spel;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "speler")
-    private Set<ScoreEntity> scores = new HashSet<>();
+
+    @ManyToMany(mappedBy = "spelers")
+    private Set<SpelEntity> spellen;
 }

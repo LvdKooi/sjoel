@@ -16,30 +16,30 @@ import static nl.kooi.sjoel.api.Mapper.map;
 public class SpelerController {
     private final SpelerService spelerService;
 
-    @PostMapping("/spel/{spelId}/speler")
+    @PostMapping("/speler")
     @ResponseStatus(value = HttpStatus.OK)
-    public void saveSpeler(@PathVariable int spelId, @Valid @RequestBody SpelerDto speler) {
-        spelerService.addSpelerToSpel(spelId, Mapper.map(speler));
+    public void saveSpeler( @Valid @RequestBody SpelerDto speler) {
+        spelerService.saveSpeler(Mapper.map(speler));
     }
 
-    @PutMapping("/spel/{spelId}/speler/{spelerId}")
+    @PutMapping("speler/{spelerId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateSpeler(@PathVariable("spelId") int spelId, @PathVariable("spelerId") int spelerId, @RequestBody SpelerDto speler) {
-        spelerService.getSpelerBySpelIdAndSpelerId(spelId, spelerId);
+    public void updateSpeler(@PathVariable("spelerId") int spelerId, @RequestBody SpelerDto speler) {
+        spelerService.findSpelerById( spelerId);
         speler.setId(spelerId);
-        spelerService.addSpelerToSpel(spelId, map(speler));
+        spelerService.saveSpeler(Mapper.map(speler));
     }
 
-    @GetMapping("/spel/{spelId}/speler/{spelerId}")
+    @GetMapping("speler/{spelerId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public SpelerDto getSpeler(@PathVariable("spelId") int spelId, @PathVariable("spelerId") int spelerId) {
-        return map(spelerService.getSpelerBySpelIdAndSpelerId(spelId, spelerId));
+    public SpelerDto getSpeler(@PathVariable("spelerId") int spelerId) {
+        return map(spelerService.findSpelerById(spelerId));
     }
 
-    @GetMapping("/spel/{spelId}/speler")
+    @GetMapping("/speler")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<SpelerDto> getSpelers(@PathVariable("spelId") int spelId) {
-        return spelerService.getSpelersBySpelId(spelId).stream().map(Mapper::map).collect(Collectors.toList());
+    public List<SpelerDto> getSpelers() {
+        return spelerService.getSpelers().stream().map(Mapper::map).collect(Collectors.toList());
     }
 
 }

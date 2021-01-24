@@ -29,8 +29,8 @@ public class SpelController {
 
     @GetMapping("/spel/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void getSpel(@PathVariable int id) {
-        spelService.getSpel(id);
+    public SpelDto getSpel(@PathVariable int id) {
+       return Mapper.map(spelService.getSpel(id));
     }
 
 }

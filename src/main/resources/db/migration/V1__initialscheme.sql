@@ -5,8 +5,7 @@ create table spel (
 
 create table speler (
   id int primary key AUTO_INCREMENT,
-  naam varchar(55) not null,
-  spel_id int
+  naam varchar(55) not null
 );
 
 create table score (
@@ -22,4 +21,9 @@ create table ronde (
   ronde_nummer int,
   ronde_id int,
   spel_id int
+);
+
+create table spel_speler (
+  spel_id int,
+  speler_id int
 );

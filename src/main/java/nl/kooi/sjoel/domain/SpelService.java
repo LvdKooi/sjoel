@@ -4,8 +4,11 @@ import lombok.RequiredArgsConstructor;
 import nl.kooi.sjoel.persistence.repository.SpelRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class SpelService {
     private final SpelRepository spelRepository;
 
