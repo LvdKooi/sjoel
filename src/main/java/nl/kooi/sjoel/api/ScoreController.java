@@ -14,9 +14,8 @@ public class ScoreController {
 
     @PostMapping("/spel/{spelId}/ronde/{rondenummer}/speler/{spelerId}/score")
     @ResponseStatus(value = HttpStatus.OK)
-    public void submitPunten(@PathVariable("spelId") int spelId, @PathVariable("rondenummer") int rondenummer, @PathVariable("spelerId") int spelerId, @Valid @RequestBody SjoelpuntenDto sjoelpunten) {
+    public void submitPunten(@PathVariable("spelId") int spelId, @PathVariable("rondenummer") int rondenummer, @PathVariable("spelerId") int spelerId, @RequestBody SjoelpuntenDto sjoelpunten) {
         scoreService.submitPunten(spelerId, spelId, rondenummer, Mapper.map(sjoelpunten));
-
     }
 
     @GetMapping("/spel/{spelId}/ronde/{rondenummer}/speler/{spelerId}/score")

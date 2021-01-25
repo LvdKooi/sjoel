@@ -18,8 +18,11 @@ public class ScoreService {
     private final ScoreRepository scoreRepository;
     private final RondeRepository rondeRepository;
     private final SpelerRepository spelerRepository;
+    private final ValidatorService validatorService;
 
-    public void submitPunten(int spelerId, int spelId, int rondenummer,Sjoelpunten sjoelpunten) {
+    public void submitPunten(int spelerId, int spelId, int rondenummer, Sjoelpunten sjoelpunten) {
+        validatorService.validate(sjoelpunten);
+
         var score = calculateScore(sjoelpunten);
         var spelerEntity = spelerRepository.findById(spelerId).orElseThrow(
                 () -> new NotFoundException(String.format("De speler (id: %s) is niet gevonden.", spelerId))
@@ -36,21 +39,6 @@ public class ScoreService {
 
         scoreRepository.save(scoreEntity);
     }
-
-    private void validatePunten(Sjoelpunten sjoelpunten) {
-        var totaalpunten = sjoelpunten
-                .getScoremap()
-                .values()
-                .stream()
-                .reduce(Integer::sum).orElseThrow(() ->
-                        new SjoelpuntenException(String.format("De sjoelscore bevat punten zonder waarde: %s", sjoelpunten))
-                );
-
-        if (totaalpunten > Sjoelpunten.MAX_PUNTEN) {
-            throw new SjoelpuntenException(String.format("Er zijn teveel punten opgegeven, het sjoelspel heeft %s stenen", Sjoelpunten.MAX_PUNTEN));
-        }
-    }
-
 
     private int calculateScore(Sjoelpunten sjoelpunten) {
         var laagsteScore = sjoelpunten.getScoremap().values()
