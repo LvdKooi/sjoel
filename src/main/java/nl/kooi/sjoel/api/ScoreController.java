@@ -1,7 +1,6 @@
 package nl.kooi.sjoel.api;
 
 import lombok.RequiredArgsConstructor;
-import nl.kooi.sjoel.domain.RondeService;
 import nl.kooi.sjoel.domain.ScoreService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,6 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class ScoreController {
     private final ScoreService scoreService;
-    private final RondeService rondeService;
 
     @PostMapping("/spel/{spelId}/ronde/{rondenummer}/speler/{spelerId}/score")
     @ResponseStatus(value = HttpStatus.OK)

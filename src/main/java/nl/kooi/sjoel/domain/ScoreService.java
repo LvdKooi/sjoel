@@ -19,14 +19,14 @@ public class ScoreService {
     private final RondeRepository rondeRepository;
     private final SpelerRepository spelerRepository;
 
-    public void submitPunten(int spelerId, int spelId, int rondenummer, Sjoelpunten sjoelpunten) {
+    public void submitPunten(int spelerId, int spelId, int rondenummer,Sjoelpunten sjoelpunten) {
         var score = calculateScore(sjoelpunten);
         var spelerEntity = spelerRepository.findById(spelerId).orElseThrow(
                 () -> new NotFoundException(String.format("De speler (id: %s) is niet gevonden.", spelerId))
         );
         var rondeEntity = rondeRepository.findBySpelIdAndRondenummer(spelId, rondenummer).orElseThrow(
                 () -> new NotFoundException(String.format("De combinatie speler (id: %s) en rondenummer (%s) is niet gevonden.", spelId, rondenummer))
-                );
+        );
 
         var scoreEntity = new ScoreEntity();
 
@@ -53,8 +53,6 @@ public class ScoreService {
 
 
     private int calculateScore(Sjoelpunten sjoelpunten) {
-        validatePunten(sjoelpunten);
-
         var laagsteScore = sjoelpunten.getScoremap().values()
                 .stream()
                 .min(Integer::compareTo)
