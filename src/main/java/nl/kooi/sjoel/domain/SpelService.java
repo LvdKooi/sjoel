@@ -1,6 +1,7 @@
 package nl.kooi.sjoel.domain;
 
 import lombok.RequiredArgsConstructor;
+import nl.kooi.sjoel.domain.exception.NotFoundException;
 import nl.kooi.sjoel.persistence.repository.SpelRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,8 @@ public class SpelService {
         spelRepository.save(Mapper.map(spel));
     }
 
-    public Spel getSpel(int id) {
-        return spelRepository.findById(id).map(Mapper::map).orElseThrow();
+    public Spel getSpel(int spelId) {
+        return spelRepository.findById(spelId).map(Mapper::map).orElseThrow(
+                () -> new NotFoundException(String.format("Spel met id %s is niet gevonden.", spelId)));
     }
 }

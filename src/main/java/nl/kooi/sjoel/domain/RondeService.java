@@ -1,6 +1,7 @@
 package nl.kooi.sjoel.domain;
 
 import lombok.RequiredArgsConstructor;
+import nl.kooi.sjoel.domain.exception.NotFoundException;
 import nl.kooi.sjoel.persistence.RondeEntity;
 import nl.kooi.sjoel.persistence.repository.RondeRepository;
 import nl.kooi.sjoel.persistence.repository.SpelRepository;
@@ -17,7 +18,9 @@ public class RondeService {
     private final SpelRepository spelRepository;
 
     public void saveVolgendeRonde(int spelId) {
-        var spelEntity =  spelRepository.findById(spelId).orElseThrow();
+        var spelEntity = spelRepository.findById(spelId).orElseThrow(
+                () -> new NotFoundException(String.format("Spel met id %s is niet gevonden.", spelId))
+        );
         var count = rondeRepository.countBySpelId(spelId);
         var rondeEntity = new RondeEntity();
         rondeEntity.setRondenummer(++count);
@@ -26,7 +29,8 @@ public class RondeService {
     }
 
     public int getHuidigeRondenummer(int spelId) {
-        var spelEntity =  spelRepository.findById(spelId).orElseThrow();
+        spelRepository.findById(spelId).orElseThrow(
+                () -> new NotFoundException(String.format("Spel met id %s is niet gevonden.", spelId)));
         var count = rondeRepository.countBySpelId(spelId);
         return rondeRepository
                 .findBySpelIdAndRondenummer(spelId, count)
@@ -35,15 +39,12 @@ public class RondeService {
     }
 
     public void deleteLaatsteRonde(int spelId) {
-        var spelEntity =  spelRepository.findById(spelId).orElseThrow();
+        spelRepository.findById(spelId).orElseThrow(
+                () -> new NotFoundException(String.format("Spel met id %s is niet gevonden.", spelId)));
         var count = rondeRepository.countBySpelId(spelId);
         var rondeEntity = rondeRepository.findBySpelIdAndRondenummer(spelId, count);
         rondeEntity.ifPresent(entity -> rondeRepository.deleteById(entity.getId()));
 
-    }
-
-    public Ronde getRonde(int spelId, int rondeNummer) {
-        return rondeRepository.findBySpelIdAndRondenummer(spelId, rondeNummer).map(Mapper::map).orElseThrow();
     }
 
 }

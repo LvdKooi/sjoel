@@ -1,6 +1,8 @@
 package nl.kooi.sjoel.domain;
 
 import lombok.RequiredArgsConstructor;
+import nl.kooi.sjoel.domain.exception.NotFoundException;
+import nl.kooi.sjoel.domain.exception.SjoelpuntenException;
 import nl.kooi.sjoel.persistence.ScoreEntity;
 import nl.kooi.sjoel.persistence.repository.RondeRepository;
 import nl.kooi.sjoel.persistence.repository.ScoreRepository;
@@ -18,9 +20,13 @@ public class ScoreService {
     private final SpelerRepository spelerRepository;
 
     public void submitPunten(int spelerId, int spelId, int rondenummer, Sjoelpunten sjoelpunten) {
-        var score = getPunten(sjoelpunten);
-        var spelerEntity = spelerRepository.findById(spelerId).orElseThrow();
-        var rondeEntity = rondeRepository.findBySpelIdAndRondenummer(spelId, rondenummer).orElseThrow();
+        var score = calculateScore(sjoelpunten);
+        var spelerEntity = spelerRepository.findById(spelerId).orElseThrow(
+                () -> new NotFoundException(String.format("De speler (id: %s) is niet gevonden.", spelerId))
+        );
+        var rondeEntity = rondeRepository.findBySpelIdAndRondenummer(spelId, rondenummer).orElseThrow(
+                () -> new NotFoundException(String.format("De combinatie speler (id: %s) en rondenummer (%s) is niet gevonden.", spelId, rondenummer))
+                );
 
         var scoreEntity = new ScoreEntity();
 
@@ -31,13 +37,30 @@ public class ScoreService {
         scoreRepository.save(scoreEntity);
     }
 
+    private void validatePunten(Sjoelpunten sjoelpunten) {
+        var totaalpunten = sjoelpunten
+                .getScoremap()
+                .values()
+                .stream()
+                .reduce(Integer::sum).orElseThrow(() ->
+                        new SjoelpuntenException(String.format("De sjoelscore bevat punten zonder waarde: %s", sjoelpunten))
+                );
 
-    private int getPunten(Sjoelpunten sjoelpunten) {
+        if (totaalpunten > Sjoelpunten.MAX_PUNTEN) {
+            throw new SjoelpuntenException(String.format("Er zijn teveel punten opgegeven, het sjoelspel heeft %s stenen", Sjoelpunten.MAX_PUNTEN));
+        }
+    }
+
+
+    private int calculateScore(Sjoelpunten sjoelpunten) {
+        validatePunten(sjoelpunten);
 
         var laagsteScore = sjoelpunten.getScoremap().values()
                 .stream()
                 .min(Integer::compareTo)
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new SjoelpuntenException("De sjoelscore bevatten punten zonder waarde.")
+                );
 
         var totaalScore = laagsteScore * 20;
 
@@ -54,6 +77,6 @@ public class ScoreService {
         return scoreRepository
                 .findBySpelerIdAndRondeRondenummerAndRondeSpelId(spelerId, rondenummer, spelId)
                 .map(Mapper::map)
-                .orElseThrow();
+                .orElseThrow(() -> new NotFoundException(String.format("De combinatie spel (id: %s), speler (id: %s) en rondenummer (%s) is niet gevonden.", spelId, spelerId, rondenummer)));
     }
 }

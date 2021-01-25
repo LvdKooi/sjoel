@@ -9,6 +9,7 @@ import java.util.Map;
 @Getter
 @Setter
 public class Sjoelpunten {
+    public static final int MAX_PUNTEN = 32;
     private Integer scoresTwee;
     private Integer scoresDrie;
     private Integer scoresVier;

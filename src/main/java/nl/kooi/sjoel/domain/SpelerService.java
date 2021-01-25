@@ -1,6 +1,7 @@
 package nl.kooi.sjoel.domain;
 
 import lombok.RequiredArgsConstructor;
+import nl.kooi.sjoel.domain.exception.NotFoundException;
 import nl.kooi.sjoel.persistence.repository.SpelerRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,14 @@ import java.util.stream.Collectors;
 public class SpelerService {
     private final SpelerRepository spelerRepository;
 
-
     public void saveSpeler(Speler speler) {
         spelerRepository.save(Mapper.map(speler));
     }
 
     public Speler findSpelerById(int spelerId) {
-        return spelerRepository.findById(spelerId).map(Mapper::map).orElseThrow();
+        return spelerRepository.findById(spelerId).map(Mapper::map).orElseThrow(
+                () -> new NotFoundException(String.format("Speler met id %s is niet gevonden.", spelerId))
+        );
     }
 
     public List<Speler> getSpelers() {
