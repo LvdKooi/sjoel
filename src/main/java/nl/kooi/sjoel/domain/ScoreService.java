@@ -2,6 +2,7 @@ package nl.kooi.sjoel.domain;
 
 import lombok.RequiredArgsConstructor;
 import nl.kooi.sjoel.domain.exception.NotFoundException;
+import nl.kooi.sjoel.domain.exception.OngeldigeSjoelActieException;
 import nl.kooi.sjoel.domain.exception.SjoelpuntenException;
 import nl.kooi.sjoel.persistence.ScoreEntity;
 import nl.kooi.sjoel.persistence.repository.RondeRepository;
@@ -28,8 +29,13 @@ public class ScoreService {
                 () -> new NotFoundException(String.format("De speler (id: %s) is niet gevonden.", spelerId))
         );
         var rondeEntity = rondeRepository.findBySpelIdAndRondenummer(spelId, rondenummer).orElseThrow(
-                () -> new NotFoundException(String.format("De combinatie speler (id: %s) en rondenummer (%s) is niet gevonden.", spelId, rondenummer))
+                () -> new NotFoundException(String.format("De combinatie spel (id: %s) en rondenummer (%s) is niet gevonden.", spelId, rondenummer))
         );
+
+        if(scoreRepository.findBySpelerIdAndRondeRondenummerAndRondeSpelId(spelerId, rondenummer, spelId).isPresent()) {
+            throw new OngeldigeSjoelActieException(String.format("Er is in spel (id: %s) al een score voor speler %s " +
+                    "in rondenummer (%s) bekend.", spelId, spelerEntity.getNaam(), rondenummer));
+        }
 
         var scoreEntity = new ScoreEntity();
 
@@ -40,12 +46,13 @@ public class ScoreService {
         scoreRepository.save(scoreEntity);
     }
 
+
     private int calculateScore(Sjoelpunten sjoelpunten) {
         var laagsteScore = sjoelpunten.getScoremap().values()
                 .stream()
                 .min(Integer::compareTo)
                 .orElseThrow(() ->
-                        new SjoelpuntenException("De sjoelscore bevatten punten zonder waarde.")
+                        new SjoelpuntenException("De sjoelpunten bevatten velden zonder waarde.")
                 );
 
         var totaalScore = laagsteScore * 20;
