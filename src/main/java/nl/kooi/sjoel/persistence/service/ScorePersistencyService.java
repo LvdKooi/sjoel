@@ -1,6 +1,7 @@
 package nl.kooi.sjoel.persistence.service;
 
 import lombok.RequiredArgsConstructor;
+import nl.kooi.sjoel.domain.Mapper;
 import nl.kooi.sjoel.domain.Score;
 import nl.kooi.sjoel.domain.dao.ScoreDao;
 import nl.kooi.sjoel.domain.exception.NotFoundException;
@@ -20,7 +21,7 @@ public class ScorePersistencyService implements ScoreDao {
     private final RondeRepository rondeRepository;
 
     @Override
-    public void submit(int spelerId, int spelId, int rondenummer, int score) {
+    public Score submit(int spelerId, int spelId, int rondenummer, int score) {
 
         var spelerEntity = spelerRepository.findById(spelerId).orElseThrow(
                 () -> new NotFoundException(String.format("De speler (id: %s) is niet gevonden.", spelerId))
@@ -40,12 +41,16 @@ public class ScorePersistencyService implements ScoreDao {
         scoreEntity.setRonde(rondeEntity);
         scoreEntity.setSpeler(spelerEntity);
 
-        scoreRepository.save(scoreEntity);
+        return Mapper.map(scoreRepository.save(scoreEntity));
 
     }
 
     @Override
     public Score getScore(int spelerId, int spelId, int rondenummer) {
-        return null;
+        return scoreRepository
+                .findBySpelerIdAndRondeRondenummerAndRondeSpelId(spelerId, rondenummer, spelId)
+                .map(Mapper::map)
+                .orElseThrow(() -> new NotFoundException(String.format("De combinatie spel (id: %s), speler (id: %s) en rondenummer (%s) is niet gevonden.", spelId, spelerId, rondenummer)));
     }
+
 }

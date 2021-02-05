@@ -2,7 +2,8 @@ package nl.kooi.sjoel.domain;
 
 import lombok.RequiredArgsConstructor;
 import nl.kooi.sjoel.domain.contract.CommandContext;
-import nl.kooi.sjoel.domain.contract.SubmitCommand;
+import nl.kooi.sjoel.domain.contract.GetQuery;
+import nl.kooi.sjoel.domain.contract.SubmitScoreCommand;
 import nl.kooi.sjoel.domain.dao.ScoreDao;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,12 @@ public class ScoreService {
     private final CommandContext commandContext;
 
     @Transactional
-    public void execute(SubmitCommand<?> submitCommand) {
-        submitCommand.execute(scoreDao, commandContext);
+    public Score execute(SubmitScoreCommand submitScoreCommand) {
+       return submitScoreCommand.execute(scoreDao, commandContext);
+    }
+
+    public Score get(GetQuery<Score, ScoreDao> getQuery) {
+        return getQuery.get(scoreDao);
     }
 
 }

@@ -1,15 +1,16 @@
 package nl.kooi.sjoel.domain.command;
 
 import lombok.RequiredArgsConstructor;
+import nl.kooi.sjoel.domain.Score;
 import nl.kooi.sjoel.domain.Sjoelpunten;
 import nl.kooi.sjoel.domain.contract.CommandContext;
-import nl.kooi.sjoel.domain.contract.SubmitCommand;
+import nl.kooi.sjoel.domain.contract.SubmitScoreCommand;
 import nl.kooi.sjoel.domain.dao.ScoreDao;
 import nl.kooi.sjoel.domain.exception.SjoelpuntenException;
 
 
 @RequiredArgsConstructor
-public class SubmitScore implements SubmitCommand<Sjoelpunten> {
+public class SubmitScore implements SubmitScoreCommand {
     private final Sjoelpunten sjoelpunten;
     private int spelerId;
     private int rondenummer;
@@ -29,21 +30,21 @@ public class SubmitScore implements SubmitCommand<Sjoelpunten> {
         return this;
     }
 
-    public SubmitScore rondenummer(int rondenummer) {
+    public SubmitScore ronde(int rondenummer) {
         this.rondenummer = rondenummer;
         return this;
     }
 
 
     @Override
-    public void execute(ScoreDao scoreDao,
-                        CommandContext commandContext) {
+    public Score execute(ScoreDao scoreDao,
+                         CommandContext commandContext) {
 
         commandContext.getValidatorService().validate(sjoelpunten);
 
         var score = calculateScore(sjoelpunten);
 
-        scoreDao.submit(spelerId, spelId, rondenummer, score);
+        return scoreDao.submit(spelerId, spelId, rondenummer, score);
 
     }
 

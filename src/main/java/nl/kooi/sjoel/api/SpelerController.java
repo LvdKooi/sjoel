@@ -18,16 +18,16 @@ public class SpelerController {
 
     @PostMapping("/speler")
     @ResponseStatus(value = HttpStatus.OK)
-    public void saveSpeler( @Valid @RequestBody SpelerDto speler) {
-        spelerService.saveSpeler(Mapper.map(speler));
+    public SpelerDto saveSpeler( @Valid @RequestBody SpelerDto speler) {
+        return Mapper.map(spelerService.saveSpeler(Mapper.map(speler)));
     }
 
     @PutMapping("speler/{spelerId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateSpeler(@PathVariable("spelerId") int spelerId, @RequestBody SpelerDto speler) {
+    public SpelerDto updateSpeler(@PathVariable("spelerId") int spelerId, @RequestBody SpelerDto speler) {
         spelerService.findSpelerById( spelerId);
         speler.setId(spelerId);
-        spelerService.saveSpeler(Mapper.map(speler));
+        return Mapper.map(spelerService.saveSpeler(Mapper.map(speler)));
     }
 
     @GetMapping("speler/{spelerId}")

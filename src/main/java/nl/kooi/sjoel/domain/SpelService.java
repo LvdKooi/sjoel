@@ -13,8 +13,8 @@ import javax.transaction.Transactional;
 public class SpelService {
     private final SpelRepository spelRepository;
 
-    public void saveSpel(Spel spel) {
-        spelRepository.save(Mapper.map(spel));
+    public Spel saveSpel(Spel spel) {
+        return Mapper.map(spelRepository.save(Mapper.map(spel)));
     }
 
     public Spel getSpel(int spelId) {

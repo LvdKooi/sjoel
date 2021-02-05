@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 public class SpelerService {
     private final SpelerRepository spelerRepository;
 
-    public void saveSpeler(Speler speler) {
-        spelerRepository.save(Mapper.map(speler));
+    public Speler saveSpeler(Speler speler) {
+      return Mapper.map(spelerRepository.save(Mapper.map(speler)));
     }
 
     public Speler findSpelerById(int spelerId) {

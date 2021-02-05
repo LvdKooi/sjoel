@@ -15,16 +15,17 @@ public class SpelController {
 
     @PostMapping("/spel")
     @ResponseStatus(value = HttpStatus.OK)
-    public void saveSpel(@Valid @RequestBody SpelDto spel) {
-        spelService.saveSpel(Mapper.map(spel));
+    public SpelDto saveSpel(@Valid @RequestBody SpelDto spel) {
+
+        return Mapper.map(spelService.saveSpel(Mapper.map(spel)));
     }
 
     @PutMapping("/spel/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateSpel(@PathVariable int id, @RequestBody SpelDto spel) {
+    public SpelDto updateSpel(@PathVariable int id, @RequestBody SpelDto spel) {
         spelService.getSpel(id);
         spel.setId(id);
-        spelService.saveSpel(Mapper.map(spel));
+        return Mapper.map(spelService.saveSpel(Mapper.map(spel)));
 }
 
     @GetMapping("/spel/{id}")
