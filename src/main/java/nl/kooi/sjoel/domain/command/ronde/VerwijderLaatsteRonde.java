@@ -1,4 +1,4 @@
-package nl.kooi.sjoel.domain.command;
+package nl.kooi.sjoel.domain.command.ronde;
 
 import nl.kooi.sjoel.domain.dao.RondeDao;
 

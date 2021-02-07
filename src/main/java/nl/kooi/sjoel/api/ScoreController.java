@@ -2,8 +2,8 @@ package nl.kooi.sjoel.api;
 
 import lombok.RequiredArgsConstructor;
 import nl.kooi.sjoel.domain.ScoreService;
-import nl.kooi.sjoel.domain.command.GetScore;
-import nl.kooi.sjoel.domain.command.SubmitScore;
+import nl.kooi.sjoel.domain.command.score.GetScore;
+import nl.kooi.sjoel.domain.command.score.SubmitScore;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

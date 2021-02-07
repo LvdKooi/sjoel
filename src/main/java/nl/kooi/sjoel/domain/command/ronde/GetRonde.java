@@ -1,4 +1,4 @@
-package nl.kooi.sjoel.domain.command;
+package nl.kooi.sjoel.domain.command.ronde;
 
 import lombok.AllArgsConstructor;
 import nl.kooi.sjoel.domain.contract.GetQuery;

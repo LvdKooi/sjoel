@@ -1,4 +1,4 @@
-package nl.kooi.sjoel.domain.command;
+package nl.kooi.sjoel.domain.command.score;
 
 import lombok.RequiredArgsConstructor;
 import nl.kooi.sjoel.domain.Score;

@@ -2,8 +2,8 @@ package nl.kooi.sjoel.api;
 
 import lombok.RequiredArgsConstructor;
 import nl.kooi.sjoel.domain.RondeService;
-import nl.kooi.sjoel.domain.command.GetRonde;
-import nl.kooi.sjoel.domain.command.RondeActie;
+import nl.kooi.sjoel.domain.command.ronde.GetRonde;
+import nl.kooi.sjoel.domain.command.ronde.RondeActie;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
