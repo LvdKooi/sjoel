@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SpelerDao {
 
-    void saveSpeler(Speler speler);
+    Speler saveSpeler(Speler speler);
 
     Speler findSpelerById(int spelerId);
 

@@ -1,31 +1,32 @@
 package nl.kooi.sjoel.domain;
 
 import lombok.RequiredArgsConstructor;
-import nl.kooi.sjoel.domain.exception.NotFoundException;
-import nl.kooi.sjoel.persistence.repository.SpelerRepository;
+import nl.kooi.sjoel.domain.command.speler.GetSpeler;
+import nl.kooi.sjoel.domain.command.speler.GetSpelers;
+import nl.kooi.sjoel.domain.contract.SpelerCommand;
+import nl.kooi.sjoel.domain.dao.SpelerDao;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class SpelerService {
-    private final SpelerRepository spelerRepository;
+    private final SpelerDao spelerDao;
 
-    public Speler saveSpeler(Speler speler) {
-      return Mapper.map(spelerRepository.save(Mapper.map(speler)));
+    @Transactional
+    public Speler execute(SpelerCommand spelerCommand) {
+        return spelerCommand.execute(spelerDao);
     }
 
-    public Speler findSpelerById(int spelerId) {
-        return spelerRepository.findById(spelerId).map(Mapper::map).orElseThrow(
-                () -> new NotFoundException(String.format("Speler met id %s is niet gevonden.", spelerId))
-        );
+    public Speler get(GetSpeler getSpeler) {
+        return getSpeler.get(spelerDao);
     }
 
-    public List<Speler> getSpelers() {
-        return spelerRepository.findAll().stream().map(Mapper::map).collect(Collectors.toList());
+    public List<Speler> get(GetSpelers getSpelers) {
+        return getSpelers.get(spelerDao);
     }
+
 }
