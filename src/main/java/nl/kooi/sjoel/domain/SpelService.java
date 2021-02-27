@@ -1,8 +1,9 @@
 package nl.kooi.sjoel.domain;
 
 import lombok.RequiredArgsConstructor;
-import nl.kooi.sjoel.domain.exception.NotFoundException;
-import nl.kooi.sjoel.persistence.repository.SpelRepository;
+import nl.kooi.sjoel.domain.command.spel.GetSpel;
+import nl.kooi.sjoel.domain.contract.SpelCommand;
+import nl.kooi.sjoel.domain.dao.SpelDao;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -11,14 +12,14 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 @Transactional
 public class SpelService {
-    private final SpelRepository spelRepository;
+    private final SpelDao spelDao;
 
-    public Spel saveSpel(Spel spel) {
-        return Mapper.map(spelRepository.save(Mapper.map(spel)));
+    @Transactional
+    public Spel execute(SpelCommand spelCommand) {
+        return spelCommand.execute(spelDao);
     }
 
-    public Spel getSpel(int spelId) {
-        return spelRepository.findById(spelId).map(Mapper::map).orElseThrow(
-                () -> new NotFoundException(String.format("Spel met id %s is niet gevonden.", spelId)));
+    public Spel get(GetSpel getSpel) {
+        return getSpel.get(spelDao);
     }
 }

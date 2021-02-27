@@ -1,6 +1,8 @@
 package nl.kooi.sjoel.api;
 
 import lombok.RequiredArgsConstructor;
+import nl.kooi.sjoel.api.dto.ScoreDto;
+import nl.kooi.sjoel.api.dto.SjoelpuntenDto;
 import nl.kooi.sjoel.domain.ScoreService;
 import nl.kooi.sjoel.domain.command.score.GetScore;
 import nl.kooi.sjoel.domain.command.score.SubmitScore;

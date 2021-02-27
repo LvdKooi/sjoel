@@ -1,6 +1,7 @@
 package nl.kooi.sjoel.api;
 
 import lombok.RequiredArgsConstructor;
+import nl.kooi.sjoel.api.dto.SpelerDto;
 import nl.kooi.sjoel.domain.SpelerService;
 import nl.kooi.sjoel.domain.command.speler.GetSpeler;
 import nl.kooi.sjoel.domain.command.speler.GetSpelers;

@@ -1,7 +1,10 @@
 package nl.kooi.sjoel.api;
 
 import lombok.RequiredArgsConstructor;
+import nl.kooi.sjoel.api.dto.SpelDto;
 import nl.kooi.sjoel.domain.SpelService;
+import nl.kooi.sjoel.domain.command.spel.GetSpel;
+import nl.kooi.sjoel.domain.command.spel.SpelActie;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,21 +20,18 @@ public class SpelController {
     @ResponseStatus(value = HttpStatus.OK)
     public SpelDto saveSpel(@Valid @RequestBody SpelDto spel) {
 
-        return Mapper.map(spelService.saveSpel(Mapper.map(spel)));
+        return Mapper.map(spelService.execute(SpelActie.voegNieuwSpelToe(Mapper.map(spel))));
     }
 
-    @PutMapping("/spel/{id}")
+    @PutMapping("/spel/{spelId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public SpelDto updateSpel(@PathVariable int id, @RequestBody SpelDto spel) {
-        spelService.getSpel(id);
-        spel.setId(id);
-        return Mapper.map(spelService.saveSpel(Mapper.map(spel)));
+    public SpelDto updateSpel(@PathVariable int spelId, @RequestBody SpelDto spel) {
+        return Mapper.map(spelService.execute(SpelActie.updateBestaandspel(spelId, Mapper.map(spel))));
 }
 
-    @GetMapping("/spel/{id}")
+    @GetMapping("/spel/{spelId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public SpelDto getSpel(@PathVariable int id) {
-       return Mapper.map(spelService.getSpel(id));
-    }
+    public SpelDto getSpel(@PathVariable int spelId) {
+        return Mapper.map(spelService.get(GetSpel.of(spelId))); }
 
 }

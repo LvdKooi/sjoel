@@ -1,6 +1,10 @@
 package nl.kooi.sjoel.api;
 
 
+import nl.kooi.sjoel.api.dto.ScoreDto;
+import nl.kooi.sjoel.api.dto.SjoelpuntenDto;
+import nl.kooi.sjoel.api.dto.SpelDto;
+import nl.kooi.sjoel.api.dto.SpelerDto;
 import nl.kooi.sjoel.domain.Score;
 import nl.kooi.sjoel.domain.Sjoelpunten;
 import nl.kooi.sjoel.domain.Spel;
