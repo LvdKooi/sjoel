@@ -1,4 +1,4 @@
-package nl.kooi.sjoel.domain;
+package nl.kooi.sjoel.domain.service;
 
 import lombok.RequiredArgsConstructor;
 import nl.kooi.sjoel.domain.exception.SjoelpuntenException;

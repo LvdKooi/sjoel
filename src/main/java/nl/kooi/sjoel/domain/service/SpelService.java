@@ -1,6 +1,7 @@
-package nl.kooi.sjoel.domain;
+package nl.kooi.sjoel.domain.service;
 
 import lombok.RequiredArgsConstructor;
+import nl.kooi.sjoel.domain.Spel;
 import nl.kooi.sjoel.domain.command.spel.GetSpel;
 import nl.kooi.sjoel.domain.contract.SpelCommand;
 import nl.kooi.sjoel.domain.dao.SpelDao;

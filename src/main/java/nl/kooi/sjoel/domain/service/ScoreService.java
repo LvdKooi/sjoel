@@ -1,6 +1,7 @@
-package nl.kooi.sjoel.domain;
+package nl.kooi.sjoel.domain.service;
 
 import lombok.RequiredArgsConstructor;
+import nl.kooi.sjoel.domain.Score;
 import nl.kooi.sjoel.domain.contract.CommandContext;
 import nl.kooi.sjoel.domain.contract.GetQuery;
 import nl.kooi.sjoel.domain.contract.SubmitScoreCommand;

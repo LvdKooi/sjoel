@@ -1,11 +1,12 @@
 package nl.kooi.sjoel.api;
 
 import lombok.RequiredArgsConstructor;
+import nl.kooi.sjoel.api.dto.Mapper;
 import nl.kooi.sjoel.api.dto.ScoreDto;
 import nl.kooi.sjoel.api.dto.SjoelpuntenDto;
-import nl.kooi.sjoel.domain.ScoreService;
 import nl.kooi.sjoel.domain.command.score.GetScore;
 import nl.kooi.sjoel.domain.command.score.SubmitScore;
+import nl.kooi.sjoel.domain.service.ScoreService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

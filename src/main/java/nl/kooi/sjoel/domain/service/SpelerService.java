@@ -1,6 +1,7 @@
-package nl.kooi.sjoel.domain;
+package nl.kooi.sjoel.domain.service;
 
 import lombok.RequiredArgsConstructor;
+import nl.kooi.sjoel.domain.Speler;
 import nl.kooi.sjoel.domain.command.speler.GetSpeler;
 import nl.kooi.sjoel.domain.command.speler.GetSpelers;
 import nl.kooi.sjoel.domain.contract.SpelerCommand;

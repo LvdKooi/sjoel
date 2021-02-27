@@ -33,8 +33,8 @@ public class RondePersistencyService implements RondeDao {
         var count = rondeRepository.countBySpelId(spelId);
         return rondeRepository
                 .findBySpelIdAndRondenummer(spelId, count)
-                .map(RondeEntity::getId)
-                .orElseThrow();
+                .map(RondeEntity::getRondenummer)
+                .orElseThrow(() -> new NotFoundException(String.format("Spel met id %s heeft nog geen rondes.", spelId)));
     }
 
     @Override

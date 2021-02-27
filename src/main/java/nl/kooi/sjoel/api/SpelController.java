@@ -1,10 +1,11 @@
 package nl.kooi.sjoel.api;
 
 import lombok.RequiredArgsConstructor;
+import nl.kooi.sjoel.api.dto.Mapper;
 import nl.kooi.sjoel.api.dto.SpelDto;
-import nl.kooi.sjoel.domain.SpelService;
 import nl.kooi.sjoel.domain.command.spel.GetSpel;
 import nl.kooi.sjoel.domain.command.spel.SpelActie;
+import nl.kooi.sjoel.domain.service.SpelService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
