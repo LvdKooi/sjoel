@@ -12,6 +12,9 @@ import nl.kooi.sjoel.persistence.repository.RondeRepository;
 import nl.kooi.sjoel.persistence.repository.SpelRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class RondePersistencyService implements RondeDao {
@@ -19,7 +22,7 @@ public class RondePersistencyService implements RondeDao {
     private final SpelRepository spelRepository;
 
     @Override
-    public void saveVolgendeRonde(int spelId) {
+    public Ronde saveVolgendeRonde(int spelId) {
         var spelEntity = spelRepository.findById(spelId).orElseThrow(() -> new NotFoundException(String.format("Spel met id %s is niet gevonden.", spelId)));
         var count = rondeRepository.countBySpelId(spelId);
 
@@ -30,12 +33,7 @@ public class RondePersistencyService implements RondeDao {
         var rondeEntity = new RondeEntity();
         rondeEntity.setRondenummer(++count);
         rondeEntity.setSpel(spelEntity);
-        rondeRepository.save(rondeEntity);
-    }
-
-    @Override
-    public int getHuidigeRondenummer(int spelId) {
-        return getHuidigeRonde(spelId).getRondenummer();
+        return Mapper.map(rondeRepository.save(rondeEntity));
     }
 
     @Override
@@ -47,6 +45,11 @@ public class RondePersistencyService implements RondeDao {
                 .findBySpelIdAndRondenummer(spelId, count)
                 .map(Mapper::map)
                 .orElseThrow(() -> new NotFoundException(String.format("Spel met id %s heeft nog geen rondes.", spelId)));
+    }
+
+    @Override
+    public List<Ronde> getRondesInSpel(int spelId) {
+        return rondeRepository.findBySpelId(spelId).stream().map(Mapper::map).collect(Collectors.toList());
     }
 
     @Override

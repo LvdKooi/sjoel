@@ -12,7 +12,5 @@ public interface ScoreRepository extends JpaRepository<ScoreEntity, Integer> {
 
     Optional<ScoreEntity> findBySpelerIdAndRondeRondenummerAndRondeSpelId(int spelerId, int rondenummer, int spelId);
 
-    List<ScoreEntity> findBySpelerIdAndRondeSpelId(int spelerId, int spelId);
-
     List<ScoreEntity> findByRondeSpelId(int spelId);
 }

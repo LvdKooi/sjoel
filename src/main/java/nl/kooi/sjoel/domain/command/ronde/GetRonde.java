@@ -1,12 +1,13 @@
 package nl.kooi.sjoel.domain.command.ronde;
 
 import lombok.AllArgsConstructor;
+import nl.kooi.sjoel.domain.Ronde;
 import nl.kooi.sjoel.domain.contract.GetQuery;
 import nl.kooi.sjoel.domain.dao.RondeDao;
 
 
 @AllArgsConstructor
-public class GetRonde implements GetQuery<Integer, RondeDao> {
+public class GetRonde implements GetQuery<Ronde, RondeDao> {
 
     private int spelId;
 
@@ -15,7 +16,7 @@ public class GetRonde implements GetQuery<Integer, RondeDao> {
     }
 
     @Override
-    public Integer get(RondeDao rondeDao) {
-        return rondeDao.getHuidigeRondenummer(spelId);
+    public Ronde get(RondeDao rondeDao) {
+        return rondeDao.getHuidigeRonde(spelId);
     }
 }
