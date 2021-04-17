@@ -5,6 +5,9 @@ import nl.kooi.sjoel.persistence.ScoreEntity;
 import nl.kooi.sjoel.persistence.SpelEntity;
 import nl.kooi.sjoel.persistence.SpelerEntity;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.util.Pair;
+
+import java.util.stream.Collectors;
 
 public class Mapper {
     private static ModelMapper modelMapper = new ModelMapper();
@@ -25,17 +28,22 @@ public class Mapper {
         return modelMapper.map(speler, SpelerEntity.class);
     }
 
-
     public static Ronde map(RondeEntity rondeEntity) {
-        return modelMapper.map(rondeEntity, Ronde.class);
+        var ronde = modelMapper.map(rondeEntity, Ronde.class);
+        var scores = rondeEntity.getScores()
+                .stream()
+                .map(scoreEntity -> Pair.of(Mapper.map(scoreEntity.getSpeler()), Mapper.map(scoreEntity)))
+                .collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
+        ronde.setScores(scores);
+        return ronde;
     }
 
     public static RondeEntity map(Ronde ronde) {
         return modelMapper.map(ronde, RondeEntity.class);
     }
 
-
     public static Score map(ScoreEntity scoreEntity) {
         return modelMapper.map(scoreEntity, Score.class);
     }
+
 }
