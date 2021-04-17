@@ -6,7 +6,6 @@ import nl.kooi.sjoel.domain.Sjoelpunten;
 import nl.kooi.sjoel.domain.contract.CommandContext;
 import nl.kooi.sjoel.domain.contract.SubmitScoreCommand;
 import nl.kooi.sjoel.domain.dao.ScoreDao;
-import nl.kooi.sjoel.domain.exception.SjoelpuntenException;
 
 
 @RequiredArgsConstructor
@@ -35,17 +34,12 @@ public class SubmitScore implements SubmitScoreCommand {
         return this;
     }
 
-
     @Override
     public Score execute(ScoreDao scoreDao,
                          CommandContext commandContext) {
-
         commandContext.getValidatorService().validate(sjoelpunten);
-
         var score = calculateScore(sjoelpunten);
-
         return scoreDao.submit(spelerId, spelId, rondenummer, score);
-
     }
 
 
@@ -53,9 +47,7 @@ public class SubmitScore implements SubmitScoreCommand {
         var laagsteScore = sjoelpunten.getScoremap().values()
                 .stream()
                 .min(Integer::compareTo)
-                .orElseThrow(() ->
-                        new SjoelpuntenException("De sjoelpunten bevatten velden zonder waarde.")
-                );
+                .orElse(0);
 
         var totaalScore = laagsteScore * 20;
 

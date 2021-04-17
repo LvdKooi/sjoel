@@ -24,7 +24,7 @@ public class RondePersistencyService implements RondeDao {
         var count = rondeRepository.countBySpelId(spelId);
 
         if (!canAdvanceToNextRound(spelEntity, count)) {
-            throw new OngeldigeSjoelActieException("Het is niet mogelijk om een nieuwe ronde aan te maken: nog niet alle spelers zijn geweest in de huidige ronde!");
+            throw new OngeldigeSjoelActieException("Het is niet mogelijk om een nieuwe ronde aan te maken: nog niet alle spelers hebben een score in de huidige ronde!");
         }
 
         var rondeEntity = new RondeEntity();
