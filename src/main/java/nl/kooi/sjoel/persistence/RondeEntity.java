@@ -1,5 +1,6 @@
 package nl.kooi.sjoel.persistence;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,9 +12,11 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "ronde")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class RondeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
     private int rondenummer;
     @ManyToOne

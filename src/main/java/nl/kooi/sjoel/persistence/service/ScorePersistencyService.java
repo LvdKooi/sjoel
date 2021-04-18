@@ -41,13 +41,11 @@ public class ScorePersistencyService implements ScoreDao {
         }
 
         var scoreEntity = new ScoreEntity();
-
         scoreEntity.setScore(score);
         scoreEntity.setRonde(rondeEntity);
         scoreEntity.setSpeler(spelerEntity);
 
         return Mapper.map(scoreRepository.save(scoreEntity));
-
     }
 
     @Override

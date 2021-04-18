@@ -39,7 +39,16 @@ public class Mapper {
     }
 
     public static RondeEntity map(Ronde ronde) {
-        return modelMapper.map(ronde, RondeEntity.class);
+        var rondeEntity = modelMapper.map(ronde, RondeEntity.class);
+        var scoreEntities = ronde.getScores().entrySet()
+                .stream()
+                .map(entry -> new ScoreEntity(entry.getValue().getId(),
+                        Mapper.map(entry.getKey()),
+                        entry.getValue().getScore(),
+                        rondeEntity))
+                .collect(Collectors.toSet());
+        rondeEntity.setScores(scoreEntities);
+        return rondeEntity;
     }
 
     public static Score map(ScoreEntity scoreEntity) {
